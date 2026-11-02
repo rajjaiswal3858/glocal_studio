@@ -143,3 +143,4 @@ build
 
 .vercel
 .env*
+.vercel-static

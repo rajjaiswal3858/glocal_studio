@@ -18,6 +18,15 @@ app.use(bodyParser.urlencoded())
 // parse application/json
 app.use(bodyParser.json())
 
+// The SSR bundle lives next to the client assets; never serve server-only files publicly
+app.use('/assets', (req, res, next) => {
+	if (/(^|\/)(\d+\.)?server\.js|loadable-stats\.json/.test(req.path)) {
+		res.status(404).end();
+		return;
+	}
+	next();
+});
+
 // Serve assets from '/assets/' prefix
 app.use('/assets', express.static(path.join(__dirname, '')));
 
