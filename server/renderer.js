@@ -1,0 +1,102 @@
+import React from 'react';
+import createEmotionServer from '@emotion/server/create-instance';
+import CssBaseline from '@mui/material/CssBaseline';
+import path from 'path';
+import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom/server';
+import { ThemeProvider } from '@mui/material/styles';
+import { CacheProvider } from '@emotion/react';
+import { getSelectorsByUserAgent } from 'react-device-detect';
+import { ChunkExtractor } from '@loadable/server';
+import { HelmetProvider } from 'react-helmet-async';
+
+import theme from '@/theme';
+import App from '@/App';
+
+import { DeviceProvider } from '@/context/DeviceContext';
+import { ContactFormProvider } from '@/context/ContactFormContext';
+
+import createEmotionCache from '../createEmotionCache';
+
+export default (req, res, initialData = {}) => {
+	const cache = createEmotionCache();
+	const { extractCriticalToChunks, constructStyleTagsFromChunks } =
+    createEmotionServer(cache);
+
+	const userAgent = req.headers['user-agent'] || '';
+
+	const helmetContext = {};
+
+	const deviceInfo = getSelectorsByUserAgent(userAgent)
+
+	const statsFile = path.resolve(process.cwd(), 'build/public/loadable-stats.json');
+  const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
+
+  const jsx = extractor.collectChunks(
+		<HelmetProvider context={helmetContext}>
+			<DeviceProvider value={deviceInfo}>
+				<CacheProvider value={cache}>
+					<ThemeProvider theme={theme}>
+						<StaticRouter location={req.url}>
+							<ContactFormProvider>
+								<CssBaseline />
+								<App initialData={initialData} />
+							</ContactFormProvider>
+						</StaticRouter>
+					</ThemeProvider>
+				</CacheProvider>
+			</DeviceProvider>
+		</HelmetProvider>
+  );
+
+	const content = renderToString(jsx);
+
+	const { helmet } = helmetContext;
+
+	// Grab the CSS from emotion
+  const emotionChunks = extractCriticalToChunks(content);
+  const emotionCss = constructStyleTagsFromChunks(emotionChunks);
+
+  const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+				<link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+				<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+				<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+				<link rel="icon" type="image/png" href="/assets/favicon.png">
+				${helmet.title.toString()}
+				<script>window.__INITIAL_DATA__ = ${JSON.stringify(initialData)}</script>
+				${extractor.getLinkTags()}
+				${extractor.getStyleTags()}
+				${emotionCss}
+      </head>
+      <body>
+        <div id="root">${content}</div>
+				<div id="menu-root"></div>
+				<script>
+          window.__DEVICE_INFO__ = ${JSON.stringify(deviceInfo)};
+        </script>
+				${extractor.getScriptTags()}
+
+
+				<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 19645795;
+    window.__lc.integration_name = "manual_channels";
+    window.__lc.product_name = "livechat";
+    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/19645795/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+      </body>
+    </html>
+  `;
+
+  res.send(html);
+};

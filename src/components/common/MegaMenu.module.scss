@@ -1,0 +1,57 @@
+.container {
+	max-width: 1024px;
+	padding-left: 40px !important;
+	padding-right: 40px !important;
+}
+
+.menuTitle {
+	font-size: 20px;
+	margin-bottom: 12px;
+	color: #f3f2ee;
+	line-height: 1.3;
+	transition: all 0.3s ease;
+}
+
+.menuInfo {
+	margin-bottom: 16px;
+}
+
+.menuDescription {
+	font-size: 14px;
+	color: #f3f2ee;
+}
+
+.link {
+	display: flex;
+	align-items: flex-start;
+	text-decoration: none;
+
+	svg {
+		width: 24px;
+		height: 31px;
+	}
+
+	&:hover {
+		svg {
+			fill: #ff005b;
+		}
+	}
+}
+
+.starIcon {
+	margin-right: 12px;
+}
+
+.menuItem {
+	transition: all 0.3s ease;
+	border-bottom: 1px solid rgba(243, 242, 238, 0.2);
+	cursor: pointer;
+
+	&:hover {
+		border-bottom: 1px solid #ff005b;
+
+		.menuTitle {
+			color: #f3f2ee;
+		}
+	}
+}

@@ -1,0 +1,13 @@
+.uspSection {
+	padding-bottom: 0;
+}
+
+
+@media screen and (max-width: 899px) {
+	.uspSection{
+		padding: 0 16px;
+	}
+	.title{
+		margin-top: 20px;
+	}
+}

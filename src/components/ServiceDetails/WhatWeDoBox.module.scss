@@ -1,0 +1,148 @@
+.mediumBold {
+	font-weight: 500;
+}
+
+.lightText {
+	font-weight: 300;
+}
+
+.textRight {
+	text-align: right;
+}
+
+.whatWeDoBox {
+	border-radius: 30px;
+	background: #a0bcd1;
+	background-size: cover !important;
+	position: relative;
+	padding: 40px;
+	height: 600px;
+
+	&.floting {
+		margin-bottom: 132px;
+		height: auto;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&:nth-last-child(2) {
+			margin-bottom: 0;
+		}
+
+		&::after {
+			content: "";
+			background: url("../../assets/images/service-details/what-we-do-service-bg.jpg") bottom left no-repeat;
+			background-size: cover;
+			mix-blend-mode: color-burn;
+			opacity: 1;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			border-radius: 30px;
+		}
+
+		&::before {
+			background: radial-gradient(circle farthest-corner at 50% 90%, rgba(254, 254, 254, 0.7) 8%, rgba(254, 254, 254, 0) 100%);
+			content: "";
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			border-radius: 30px;
+		}
+	}
+}
+
+.whatWeDoBoxContentBox {
+	position: relative;
+	z-index: 1;
+}
+
+.whatWeDoBoxHeadingSection {
+	margin: 12px 0 20px;
+}
+
+.whatWeDoItemImage {
+	position: relative;
+	bottom: -150px;
+	margin-top: -150px;
+
+	img {
+		width: 100%;
+	}
+}
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	font-size: 16px;
+	font-weight: 500;
+	color: #060010;
+	border: 2px solid transparent;
+	border-radius: 40px;
+	background: transparent;
+	padding: 8px 28px;
+
+	&::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: 40px;
+		padding: 2px; /* border size */
+		background: linear-gradient(to left, #de0d89, #347bed);
+		mask: 
+			linear-gradient(#fff 0 0) content-box, 
+			linear-gradient(#fff 0 0);
+		mask-composite: exclude;
+		z-index: -1;
+	}
+}
+
+@media screen and (max-width: 899px) {
+	.whatWeDoBox {
+		padding: 40px 20px;
+		border-radius: 20px;
+		.button {
+			padding: 8px;
+		}
+		&.floting {
+			margin-bottom: 40px !important;
+			height: auto;
+			&::before {
+				display: none;
+			}
+			&::after {
+				height: 55%;
+			}
+		}
+	}
+	.cardHeading {
+		letter-spacing: -1px;
+	}
+	.cardContent {
+		font-weight: 400;
+	}
+	.titleBox {
+		font-size: 12px;
+		svg {
+			width: 50px;
+		}
+	}
+	.whatWeDoBoxHeadingSection {
+		margin-top: 0;
+		margin-bottom: 50px;
+	}
+	.whatWeDoItemImage {
+		margin-top: -120px;
+        bottom: -90px;
+	}
+	
+}

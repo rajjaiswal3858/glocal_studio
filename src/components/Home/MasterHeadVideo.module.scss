@@ -1,0 +1,62 @@
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+	position: relative;
+  left: 0;
+  top: 0;
+}
+
+.headings {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+	width: 70%;
+	margin-top: 88px;
+}
+
+.mainHeading {
+	color: #ece9e2;
+	text-transform: uppercase;
+	font-weight: 600;
+	line-height: 0.7;
+}
+
+.uppercase {
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+.text {
+  font-size: 24px;
+  line-height: normal;
+  color: #ece9e2;
+}
+
+.textSmallBox {
+	margin: 32px auto 0;
+}
+
+.buttons {
+	margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .headings {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .masterHeadingMobile{
+    line-height: 1.1 !important;
+  }
+  .textSmallBox{
+    color: #f2f2f2;
+    font-weight: 300;
+    margin-top: 20px;
+  }
+  .master3DHeadingMobile {
+    font-weight: 600;
+  }
+}

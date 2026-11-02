@@ -1,0 +1,183 @@
+.pageContainer {
+    padding: 50px 0 100px;
+    background-color: #f9f7f4;
+    color: #060010;
+}
+
+.headingWrapper {
+    margin-bottom: 40px;
+}
+
+.title {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.contentBlock {
+    margin-bottom: 30px;
+}
+
+.sectionTitle {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    margin-top: 40px;
+}
+
+.textParagraph {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-weight: 300;
+}
+
+.bulletList {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.bulletList li {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.masterHead {
+    padding: 250px 0 100px;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+
+    &::after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 0;
+        height: 300px;
+        width: 100%;
+        background: linear-gradient(to top, rgba(6, 0, 16, 1) 0%, rgba(6, 0, 16, 0) 100%);
+        z-index: 1;
+    }
+}
+
+.videoWrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.masterHeadVideo {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #060010;
+}
+
+.mainContainer {
+    position: relative;
+    z-index: 2;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.extraLightText {
+    font-weight: 200;
+}
+
+.fontNormal {
+    font-weight: 400;
+}
+
+.mediumBold {
+    font-weight: 500;
+}
+
+.lightText {
+    font-weight: 300;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.textRight {
+    text-align: right;
+}
+
+.textWhite {
+    color: #f3f2ee;
+}
+
+.masterHeadInfoSection {
+    background: linear-gradient(360deg, rgba(23, 33, 61, 1) 0%, rgba(23, 33, 61, 0) 100%);
+    border-radius: 60px;
+    padding: 60px 0 100px;
+}
+
+.acturalVisualizationHeading {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #f3f2ee;
+    margin-bottom: 32px;
+    position: relative;
+
+    &::after {
+        content: "";
+        height: 4px;
+        background-image: linear-gradient(to left, #006aff, #ff005b);
+        width: 20%;
+        position: absolute;
+        bottom: -32px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.masterHeadingHeading {
+    text-transform: uppercase;
+    color: #f3f2ee;
+}
+
+.masterHeadText {
+    font-size: 24px;
+}
+
+@media screen and (max-width: 899px) {
+    .pageContainer {
+        padding: 50px 0 60px;
+    }
+
+    .masterHead {
+        padding: 30vh 0 50px;
+    }
+
+    .masterHeadInfoSection {
+        background: transparent;
+        padding-bottom: 50px;
+    }
+
+    .acturalVisualizationHeading {
+        margin-bottom: 40px;
+
+        &::after {
+            width: 100px;
+            bottom: -20px;
+            height: 2px;
+        }
+    }
+
+    .masterHeadText {
+        font-size: 16px;
+    }
+}

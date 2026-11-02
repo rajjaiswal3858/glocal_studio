@@ -1,0 +1,43 @@
+.requiredInfo {
+	margin-bottom: 20px;
+}
+
+.submitWrapper {
+	margin-top: 12px;
+}
+
+.submitButton {
+	justify-content: space-between !important;
+	align-items: center !important;
+}
+
+.submitText {
+	color: #060010;
+	font-size: 24px;
+}
+
+.formSubmitButton {
+	width: 32px;
+}
+
+.loader {
+	animation: loaderAnimation 5s ease;
+	animation-iteration-count: infinite;
+	fill: #000;
+	width: 80px;
+}
+
+@keyframes loaderAnimation {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@media (max-width: 899px) {
+	.contactForm label {
+		font-weight: 300 !important;
+	}
+}

@@ -1,0 +1,75 @@
+.container {
+	padding: 20px;
+	border-radius: 12px;
+	background: #f9f7f4;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.contentContainer {
+	padding: 0 20px;
+}
+
+.headingText {
+	font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.image {
+	width: 100%;
+	border-radius: 12px;
+	display: block;
+}
+
+.smallFontSize {
+	font-size: 14px;
+}
+
+.extraSmallfontsize {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.mediumBold {
+	font-weight: 500;
+}
+
+.arrowIcon {
+	width: 35%;
+}
+
+.keyServiceIcon svg {
+	margin-top: 4px;
+	width: 26px;
+}
+
+@media screen and (max-width: 899px) {
+	.contentContainer{
+		padding: 0;
+	}
+	.headingText {
+		font-size: clamp(2rem, 2.5vw, 2.5rem);
+		letter-spacing: -1px;
+        line-height: 1.1;
+	}
+	.smallFontSize {
+		font-size: 12px;
+	}
+	.contentContainer {
+		font-size: 18px;
+	}
+	.extraSmallfontsize{
+		font-size: 14px;
+		line-height: 18px;
+		text-wrap: auto;
+		word-wrap: break-word;
+		font-weight: 400;
+	}
+	.starBox svg {
+		width: 32px;
+	}
+
+	.keyServiceIcon svg {
+		width: 24px;
+		margin-top: 2px;
+	}
+	
+}

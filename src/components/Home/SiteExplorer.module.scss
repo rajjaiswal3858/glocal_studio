@@ -1,0 +1,681 @@
+.siteExplorer {
+	width: 100%;
+	background: #060010;
+	position: relative;
+
+	// Blend the image into the dark sections above and below
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		width: 100%;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	&::before {
+		top: 0;
+		height: 28%;
+		background: linear-gradient(
+			to bottom,
+			rgba(6, 0, 16, 1) 0%,
+			rgba(6, 0, 16, 0.85) 25%,
+			rgba(6, 0, 16, 0.5) 55%,
+			rgba(6, 0, 16, 0.18) 80%,
+			rgba(6, 0, 16, 0) 100%
+		);
+	}
+
+	&::after {
+		bottom: 0;
+		height: 14%;
+		background: linear-gradient(
+			to top,
+			rgba(6, 0, 16, 1) 0%,
+			rgba(6, 0, 16, 0.8) 30%,
+			rgba(6, 0, 16, 0.35) 70%,
+			rgba(6, 0, 16, 0) 100%
+		);
+	}
+}
+
+.scroller {
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+// Full width, but never taller than the screen: the image is cropped vertically
+.stage {
+	position: relative;
+	width: 100%;
+	height: min(calc(100vw * 1440 / 2552), 100vh);
+	height: min(calc(100vw * 1440 / 2552), 100svh);
+	overflow: hidden;
+}
+
+// Keeps the image's aspect ratio so hotspots stay aligned; the crop is taken
+// mostly from the sky (anchored at 75% down the image, like object-position: 50% 75%)
+.canvas {
+	position: absolute;
+	left: 0;
+	top: 75%;
+	width: 100%;
+	aspect-ratio: 2552 / 1440;
+	transform: translateY(-75%);
+}
+
+.drift {
+	position: absolute;
+	inset: 0;
+}
+
+.image {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	user-select: none;
+	-webkit-user-drag: none;
+}
+
+.hotspot {
+	position: absolute;
+	width: 52px;
+	height: 52px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	background: transparent;
+	transform: translate(-50%, -50%);
+	cursor: pointer;
+	z-index: 2;
+	-webkit-tap-highlight-color: transparent;
+
+	&:hover,
+	&:focus-visible,
+	&.hotspotHighlighted {
+		z-index: 3;
+
+		.dot {
+			transform: translate(-50%, -50%) scale(1.25);
+			background: radial-gradient(circle, #fff 0 6px, #00d4f3 7px);
+		}
+
+		.label {
+			opacity: 1;
+			transform: translate(-50%, 0);
+		}
+	}
+
+	&:focus-visible .dot {
+		box-shadow: 0 0 0 3px rgba(0, 212, 243, 0.9);
+	}
+}
+
+// Dark disc + white ring + white core reads on both light paving and dark foliage;
+// a filled cyan halo and a cyan ring pulse out of it to draw the eye
+.dot {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: radial-gradient(circle, #fff 0 6px, rgba(6, 0, 16, 0.65) 7px);
+	border: 3px solid #fff;
+	box-shadow: 0 0 0 2px rgba(0, 212, 243, 0.9), 0 0 22px rgba(0, 212, 243, 0.9), 0 3px 10px rgba(6, 0, 16, 0.6);
+	transform: translate(-50%, -50%);
+	transition: transform 0.25s ease, background 0.25s ease;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		inset: -3px;
+		border-radius: 50%;
+		animation: blip var(--blip-duration, 2.4s) ease-out var(--blip-delay, 0s) infinite;
+	}
+
+	&::before {
+		background: rgba(0, 212, 243, 0.45);
+	}
+
+	&::after {
+		border: 3px solid #00d4f3;
+		animation-delay: calc(var(--blip-delay, 0s) + var(--blip-duration, 2.4s) / 2);
+	}
+}
+
+.label {
+	position: absolute;
+	bottom: calc(100% + 2px);
+	left: 50%;
+	padding: 6px 12px;
+	border-radius: 20px;
+	background: rgba(6, 0, 16, 0.75);
+	backdrop-filter: blur(6px);
+	color: #ece9e2;
+	font-size: 13px;
+	font-weight: 500;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	transform: translate(-50%, 6px);
+	transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@keyframes blip {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(2.8);
+		opacity: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.dot::before,
+	.dot::after {
+		animation: none;
+		opacity: 0;
+	}
+}
+
+// Decorative layers between the image and the hotspots; they drift with the image
+.clouds,
+.glint,
+.particles {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.clouds,
+.glint {
+	display: none;
+}
+
+.particle {
+	position: absolute;
+	left: var(--x);
+	top: var(--y);
+	width: var(--size);
+	height: var(--size);
+	border-radius: 50%;
+	background: radial-gradient(circle, #fff 0%, rgba(0, 212, 243, 0.8) 45%, rgba(0, 212, 243, 0) 70%);
+	opacity: 0;
+}
+
+// Ambient motion. Uses the individual `scale` / `translate` properties so it
+// layers on top of the existing transforms (centering, hover) without overriding them.
+@media (prefers-reduced-motion: no-preference) {
+	// Drift and breathing scale; always zoomed at least 2% so no edge is exposed
+	.drift {
+		animation: siteDrift 14s ease-in-out infinite alternate;
+		will-change: transform;
+	}
+
+	.hotspot {
+		animation: hotspotFloat var(--float-duration, 4s) ease-in-out var(--float-delay, 0s) infinite;
+	}
+
+	// Gentle breathing plus a glow when the tour wave reaches this hotspot
+	.dot {
+		animation:
+			dotPulse var(--pulse-duration, 3s) ease-in-out var(--float-delay, 0s) infinite,
+			dotSpotlight 12s ease-in-out calc(2.5s + var(--i, 0) * 0.7s) infinite;
+	}
+
+	// Each label peeks out in turn, like a guided tour of the site
+	.label {
+		animation: labelTour 12s ease-in-out calc(2.5s + var(--i, 0) * 0.7s) infinite;
+	}
+
+	.hotspot:hover .label,
+	.hotspot:focus-visible .label,
+	.hotspotHighlighted .label {
+		animation: none;
+	}
+
+	// Desktop cursor parallax: the site shifts a little, the sparkles a little more
+	.canvas {
+		// Percent-based and smaller than the drift's zoom margin, so no edge is exposed
+		translate: calc(var(--px, 0) * -0.4%) calc(var(--py, 0) * -0.4%);
+		transition: translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.particles {
+		translate: calc(var(--px, 0) * -18px) calc(var(--py, 0) * -12px);
+		transition: translate 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.particle {
+		animation: particleRise var(--duration) ease-in-out var(--delay) infinite;
+	}
+
+	// Soft cloud shadows sliding across the site
+	.clouds {
+		display: block;
+		mix-blend-mode: multiply;
+
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 10%;
+			left: 0;
+			width: 45%;
+			height: 70%;
+			border-radius: 50%;
+			background: radial-gradient(ellipse at center, rgba(6, 0, 16, 0.32) 0%, rgba(6, 0, 16, 0) 70%);
+			animation: cloudPass 38s linear infinite;
+		}
+
+		&::after {
+			top: 35%;
+			width: 35%;
+			height: 55%;
+			animation-duration: 52s;
+			animation-delay: -24s;
+		}
+	}
+
+	// A warm band of sunlight sweeps across every few seconds
+	.glint {
+		display: block;
+		mix-blend-mode: screen;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: -20%;
+			left: 0;
+			width: 35%;
+			height: 140%;
+			background: linear-gradient(105deg, rgba(255, 240, 210, 0) 0%, rgba(255, 240, 210, 0.22) 50%, rgba(255, 240, 210, 0) 100%);
+			transform: translateX(-120%) skewX(-12deg);
+			animation: glintSweep 10s ease-in-out 3s infinite;
+		}
+	}
+
+	// Entrance: the site settles in from a slight zoom, then the blips pop in one by one
+	.animated {
+		.canvas {
+			transition:
+				translate 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+				scale 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+				opacity 1.2s ease;
+		}
+
+		.hotspot {
+			transition: opacity 0.5s ease, scale 0.7s cubic-bezier(0.34, 1.2, 0.64, 1); // tiny overshoot, no bounce
+		}
+
+		&:not(.inView) {
+			.canvas {
+				scale: 1.08;
+				opacity: 0.6;
+			}
+
+			.hotspot {
+				scale: 0.3;
+				opacity: 0;
+			}
+		}
+	}
+
+	.inView .hotspot {
+		transition-delay: calc(0.6s + var(--i, 0) * 90ms);
+	}
+}
+
+@keyframes siteDrift {
+	0% {
+		transform: scale(1.025) translate(0, 0);
+	}
+	35% {
+		transform: scale(1.045) translate(-0.6%, -0.7%);
+	}
+	70% {
+		transform: scale(1.035) translate(0.6%, -0.3%);
+	}
+	100% {
+		transform: scale(1.05) translate(0.2%, -0.9%);
+	}
+}
+
+@keyframes hotspotFloat {
+	0%,
+	100% {
+		translate: 0 0;
+	}
+	30% {
+		translate: 2px -6px;
+	}
+	65% {
+		translate: -1.5px -3px;
+	}
+}
+
+@keyframes dotPulse {
+	0%,
+	100% {
+		scale: 1;
+	}
+	50% {
+		scale: 1.12;
+	}
+}
+
+@keyframes dotSpotlight {
+	0%,
+	12%,
+	100% {
+		box-shadow: 0 0 0 2px rgba(0, 212, 243, 0.9), 0 0 22px rgba(0, 212, 243, 0.9), 0 3px 10px rgba(6, 0, 16, 0.6);
+	}
+	5% {
+		box-shadow: 0 0 0 6px rgba(0, 212, 243, 0.5), 0 0 40px rgba(0, 212, 243, 1), 0 3px 10px rgba(6, 0, 16, 0.6);
+	}
+}
+
+@keyframes labelTour {
+	0%,
+	14%,
+	100% {
+		opacity: 0;
+		translate: 0 6px;
+	}
+	3%,
+	11% {
+		opacity: 1;
+		translate: 0 -6px;
+	}
+}
+
+@keyframes particleRise {
+	0% {
+		opacity: 0;
+		transform: translateY(0) scale(0.6);
+	}
+	20% {
+		opacity: 0.9;
+	}
+	80% {
+		opacity: 0.6;
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-70px) scale(1);
+	}
+}
+
+@keyframes cloudPass {
+	from {
+		transform: translateX(-110%);
+	}
+	to {
+		transform: translateX(260%);
+	}
+}
+
+@keyframes glintSweep {
+	0% {
+		transform: translateX(-120%) skewX(-12deg);
+	}
+	45%,
+	100% {
+		transform: translateX(320%) skewX(-12deg);
+	}
+}
+
+// Subtle list of every area in the top-right corner; each opens its video
+.areaList {
+	position: absolute;
+	top: 40px;
+	right: 40px;
+	z-index: 3;
+
+	// Soft dark glow behind the names so they read over bright trees as well as the sky
+	&::before {
+		content: '';
+		position: absolute;
+		inset: -40px -40px -40px -80px;
+		background: radial-gradient(ellipse at 70% 50%, rgba(6, 0, 16, 0.7) 0%, rgba(6, 0, 16, 0.45) 45%, rgba(6, 0, 16, 0) 75%);
+		pointer-events: none;
+		z-index: -1;
+	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 8px;
+	}
+}
+
+.areaLink {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	padding: 4px 0;
+	border: 0;
+	background: transparent;
+	color: #ece9e2;
+	font-family: inherit;
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-shadow: 0 1px 2px rgba(6, 0, 16, 0.95), 0 2px 10px rgba(6, 0, 16, 0.85);
+	cursor: pointer;
+	transition: color 0.25s ease;
+
+	// Small marker that turns into a cyan line on hover
+	&::after {
+		content: '';
+		width: 10px;
+		height: 2px;
+		background: currentColor;
+		transition: width 0.25s ease, background 0.25s ease;
+	}
+
+	&:hover,
+	&:focus-visible {
+		color: #00d4f3;
+
+		&::after {
+			width: 24px;
+			background: #00d4f3;
+		}
+	}
+}
+
+// The site image, dimmed and softly blurred, sits behind the video
+.backdrop {
+	background-color: #060010 !important;
+	overflow: hidden;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+	}
+
+	&::before {
+		background: var(--backdrop-image) center / cover no-repeat;
+		filter: blur(4px);
+		opacity: 0.9;
+		transform: scale(1.08); // hide the blurred edges
+	}
+
+	&::after {
+		background: radial-gradient(ellipse at center, rgba(6, 0, 16, 0.1) 0%, rgba(6, 0, 16, 0.4) 100%);
+	}
+}
+
+// The video fills the whole screen
+.lightbox {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+}
+
+// Grow out of the clicked hotspot to fill the screen
+.lightboxOpen {
+	animation: lightboxIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+	.closeButton {
+		animation: lightboxDetailsIn 0.4s ease 0.45s both;
+	}
+}
+
+// Shrink back slightly while fading out
+.lightboxClosing {
+	transform: scale(0.96);
+	transition: transform 0.4s ease;
+}
+
+@keyframes lightboxIn {
+	from {
+		transform: translate(var(--from-x, 0px), var(--from-y, 0px)) scale(0.08);
+		filter: blur(6px);
+		opacity: 0;
+	}
+	40% {
+		opacity: 1;
+	}
+	to {
+		transform: none;
+		filter: blur(0);
+		opacity: 1;
+	}
+}
+
+@keyframes lightboxDetailsIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lightboxOpen,
+	.lightboxOpen .closeButton {
+		animation: none;
+	}
+
+	.lightboxClosing {
+		transform: none;
+		transition: none;
+	}
+}
+
+// Fit the whole frame inside any screen (never cropped); the blurred backdrop fills the leftover space
+.video {
+	display: block;
+	// All site videos are 16:9: as large as possible while the full frame stays on screen
+	width: min(100vw, calc(100vh * 16 / 9));
+	width: min(100vw, calc(100dvh * 16 / 9));
+	aspect-ratio: 16 / 9;
+	height: auto;
+	object-fit: contain;
+	background: #000;
+	box-shadow: 0 20px 60px rgba(6, 0, 16, 0.6);
+}
+
+.closeButton {
+	position: absolute;
+	top: 24px;
+	right: 24px;
+	z-index: 1;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	fill: #ece9e2;
+	filter: drop-shadow(0 2px 6px rgba(6, 0, 16, 0.7));
+	transition: transform 0.2s ease, fill 0.2s ease;
+
+	&:hover,
+	&:focus-visible {
+		transform: scale(1.1);
+		fill: #fff;
+	}
+}
+
+.closeIcon {
+	width: 100%;
+	height: 100%;
+}
+
+@media screen and (max-width: 900px) {
+	// Keep the image large enough for accurate tapping; it scrolls sideways
+	.stage {
+		width: 900px;
+		height: calc(900px * 1440 / 2552);
+	}
+
+	.label {
+		font-size: 12px;
+	}
+
+	// One swipeable row along the top so the list never covers the blips
+	.areaList {
+		top: 12px;
+		left: 0;
+		right: 0;
+		overflow-x: auto;
+		scrollbar-width: none;
+		-webkit-overflow-scrolling: touch;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		ul {
+			flex-direction: row;
+			align-items: center;
+			gap: 16px;
+			width: max-content;
+			padding: 0 16px;
+		}
+	}
+
+	.areaLink {
+		font-size: 13px;
+		padding: 8px 0;
+		white-space: nowrap;
+
+		&::after {
+			display: none;
+		}
+	}
+
+	.closeButton {
+		top: 16px;
+		right: 16px;
+	}
+}

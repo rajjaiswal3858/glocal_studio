@@ -1,0 +1,113 @@
+.scene-wrapper {
+	position: relative;
+}
+
+.scene {
+	perspective: 900px;
+	position: relative;
+	height: 80vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.scene__title {
+	position: relative;
+	z-index: 10;
+	margin: 0;
+	// font-size: 3rem;
+	font-size: clamp(1.2rem, 4vw, 3rem);
+	font-weight: 700;
+}
+
+.scene__title a {
+	display: block;
+	color: #ece9e2;
+	text-decoration: none;
+	outline: none;
+	cursor: none;
+	transition: all 0.3s ease;
+	text-transform: uppercase;
+}
+
+.scene__title span {
+	display: inline-block;
+}
+
+.scene__title .char {
+	display: inline-block;
+	transform-style: preserve-3d;
+	transform-origin: 50% 0%;
+}
+
+.emptyChar {
+	min-width: 10px;
+}
+
+.carousel {
+	width: 400px;
+	height: 500px;
+	top: 50%;
+	left: 50%;
+	margin: -250px 0 0 -200px;
+	position: absolute;
+	transform-style: preserve-3d;
+	will-change: transform;
+	transform: translateZ(-550px) rotateY(0deg);
+}
+
+.scene:nth-child(even) .carousel {
+	transform: translateZ(-550px) rotateY(45deg);
+}
+
+.carousel__cell {
+	position: absolute;
+	width: 350px;
+	height: 420px;
+	left: 0;
+	top: 0;
+	transform-style: preserve-3d;
+}
+
+.card {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	transform-style: preserve-3d;
+}
+
+.card__face {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	backface-visibility: hidden;
+	background-image: var(--img);
+	background-size: cover;
+	background-position: center;
+	border-radius: 8px;
+}
+
+.card__face img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 8px;
+}
+
+.card__face--back {
+	transform: rotateY(180deg);
+}
+
+
+@media screen and (max-width: 768px) {
+	.scene__title {
+		text-align: center;
+		padding: 0 20px;
+		font-weight: 600;
+		letter-spacing: -1px;
+		line-height: 32px;
+	}
+	.carousel__cell{
+		width: 280px;
+	}
+}

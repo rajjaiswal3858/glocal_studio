@@ -1,0 +1,25 @@
+body {
+	overflow-x: hidden;
+	width: 100%;
+	font-family: Poppins, sans-serif;
+	color: #060010 !important;
+}
+
+#root {
+	width: 100%;
+	height: 100%;
+	// overflow-x: hidden;
+}
+
+* {
+	box-sizing: border-box;
+
+	:focus-visible {
+		outline: 0 !important;
+	}
+
+	&::after,
+	&::before {
+		box-sizing: border-box;
+	}
+}

@@ -1,0 +1,30 @@
+.glassEffect {
+	position: absolute;
+	z-index: 0;
+	border-radius: 20px;
+	inset: 0;
+	backdrop-filter: blur(15px);
+	filter: url(#glass-distortion);
+	overflow: hidden;
+	isolation: isolate;
+	will-change: transform;
+	contain: paint layout;
+  transform: translateZ(0);
+}
+
+.glassTint {
+	z-index: 1;
+	position: absolute;
+	inset: 0;
+	border-radius: 20px;
+	background: var(--glassBackground, rgba(6, 0, 16, 0.7));
+}
+
+.glassShine {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: inset 2px 2px 1px 0 var(--glassBackground, rgba(6, 0, 16, 0.7)), inset -1px -1px 1px 1px var(--glassBackground, rgba(6, 0, 16, 0.7));
+}

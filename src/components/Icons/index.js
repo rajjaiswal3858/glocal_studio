@@ -1,0 +1,16 @@
+export { default as PhoneIcon } from "./Phone";
+export { default as EmailIcon } from "./Email";
+export { default as ArrowUpFilled } from "./ArrowUpFilled";
+export { default as AdministrativeTask } from "./AdministrativeTask";
+export { default as CreativeDesign } from "./CreativeDesign";
+export { default as CustomerSupport } from "./CustomerSupport";
+export { default as DigitalMarketing } from "./DigitalMarketing";
+export { default as SoftwareAppDevelopment } from "./SoftwareAppDevelopment";
+export { default as WebDevelopment } from "./WebDevelopment";
+export { default as CircleLoader } from "./CircleLoader";
+export { default as CloseIcon } from "./CloseIcon";
+export { default as StarGradiantIcon } from "./StarGradiantIcon";
+export { default as TickIcon } from "./Tick";
+export { default as PlusIcon } from "./Plus";
+export { default as MinusIcon } from "./Minus";
+export { default as ArrowIcon } from "./ArrowRight";

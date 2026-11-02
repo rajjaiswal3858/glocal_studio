@@ -1,0 +1,138 @@
+.topSection {
+	padding: 16px 20px;
+	background-color: rgba(6, 0, 16, 0.7);
+	backdrop-filter: blur(9.5px);
+}
+
+.navBar {
+  display: flex;
+  justify-content: center;
+	text-transform: uppercase;
+	font-weight: 600;
+  
+  a {
+		font-size: clamp(16px, 100%, 36px);
+    margin: 0 16px;
+    color: #ece9e2;
+    text-decoration: none;
+
+		&:last-child {
+			margin-right: 0;
+		}
+  }
+}
+
+.logoContainer {
+	display: flex;
+}
+
+.logo {
+	height: 50px;
+	cursor: pointer;
+}
+
+.headerLink {
+	overflow: hidden;
+  position: relative;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		left: 0;
+	}
+
+	&::before {
+		background-color: #ff005b;
+		height: 2px;
+		bottom: 0;
+		transform-origin: 100% 50%;
+		transform: scaleX(0);
+		transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+	}
+
+	&::after {
+		content: attr(data-replace);
+		height: 100%;
+		top: 0;
+		transform-origin: 100% 50%;
+		transform: translate3d(200%, 0, 0);
+		transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+		color: #ff005b;
+	}
+
+	&:hover::before {
+		transform-origin: 0% 50%;
+		transform: scaleX(1);
+	}
+
+	&:hover::after {
+		transform: translate3d(0, 0, 0);
+	}
+
+	span {
+		display: inline-block;
+		transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+	}
+	
+	&:hover span {
+		transform: translate3d(-200%, 0, 0);
+	}
+}
+
+.menuRoot {
+	:global {
+		.MuiBackdrop-root {
+			backdrop-filter: none !important;
+			background: transparent !important;
+		}
+	}
+}
+
+.getInTouchButtonWrapper {
+	text-align: right;
+}
+
+.getInTouchButton {
+	padding: 12px 24px;
+	font-size: 14px;
+}
+
+.menuPopover {
+	--Paper-shadow: none !important; // 0px 5px 5px -3px rgba(255,255,255,0.30),0px 8px 10px 1px rgba(255,255,255,0.44),0px 3px 14px 2px rgba(255,255,255,0.42) !important;
+
+	background-color: rgba(6, 0, 16, 0.7) !important;
+	backdrop-filter: blur(9.5px);
+	margin-top: 22px;
+	overflow-y: auto;
+	padding: 20px 0 24px;
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-radius: 12px;
+	top: 66px !important;
+
+	:global {
+		.MuiList-root {
+			padding-top: 20px !important;
+			padding-bottom: 20px !important;
+		}
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.navBar,
+	.address,
+	.phone{
+		display: none;
+	}
+	.topSection {
+		padding: 8px 20px;	
+	}
+	.logo {
+		width: 100%;
+	}
+	.logoContainer {
+		margin-top: 10px;
+	}
+}

@@ -1,0 +1,474 @@
+/* ── Full CSS Reset & Isolation ── */
+.overlay,
+.overlay *,
+.overlay *::before,
+.overlay *::after {
+  all: initial !important;
+  box-sizing: border-box !important;
+}
+
+.overlay br {
+  display: block !important;
+}
+
+/* ── Overlay ── */
+.overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s !important;
+  font-family: 'Poppins', sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  pointer-events: none !important;
+  isolation: isolate !important;
+}
+
+.overlay.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* ── Modal ── */
+.modal {
+  display: flex !important;
+  flex-direction: row !important;
+  background: #ffffff !important;
+  border-radius: 28px !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
+  width: 920px !important;
+  max-width: 90vw !important;
+  height: auto !important;
+  max-height: 90vh !important;
+  overflow: hidden !important;
+  position: relative !important;
+  transform: scale(0.92) translateY(24px) !important;
+  opacity: 0 !important;
+  transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.15), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.active .modal {
+  transform: scale(1) translateY(0) !important;
+  opacity: 1 !important;
+}
+
+/* ── Left Panel ── */
+.left {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  width: 52% !important;
+  padding: 44px 48px !important;
+  margin: 0 !important;
+  background: #ffffff !important;
+  overflow-y: auto !important;
+}
+
+.leftTop {
+  display: block !important;
+}
+
+/* ── Logo ── */
+.logo {
+  display: block !important;
+  height: 38px !important;
+  width: auto !important;
+  max-width: 200px !important;
+  margin: 0 0 12px 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  object-fit: contain !important;
+}
+
+/* ── Title ── */
+.title {
+  display: block !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 32px !important;
+  line-height: 1.15 !important;
+  color: #0c2b5c !important;
+  margin: 16px 0 8px 0 !important;
+  padding: 0 !important;
+  letter-spacing: -0.5px !important;
+  text-transform: uppercase !important;
+  border: none !important;
+  background: none !important;
+}
+
+.highlight {
+  color: #f08b1d !important;
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+/* ── Right Panel (Banner) ── */
+.right {
+  display: block !important;
+  width: 48% !important;
+  align-self: stretch !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background-image: url('https://beige-oyster-766501.hostingersite.com/hf-popup/assets/banner-close.jpeg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: #0c2b5c !important;
+  flex-shrink: 0 !important;
+}
+
+.mobileBanner {
+  display: none !important;
+}
+
+/* ── Close Button (CSS X icon) ── */
+.close {
+  display: block !important;
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  outline: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+.close:hover {
+  transform: rotate(90deg) scale(1.08) !important;
+  background: #f8fafc !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14) !important;
+}
+
+.close::before,
+.close::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 16px !important;
+  height: 2.5px !important;
+  background: #0c2b5c !important;
+  border-radius: 2px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.close::before {
+  transform: translate(-50%, -50%) rotate(45deg) !important;
+}
+
+.close::after {
+  transform: translate(-50%, -50%) rotate(-45deg) !important;
+}
+
+/* ── Closed State Layout ── */
+.closedLayout {
+  justify-content: flex-start !important;
+  gap: 0 !important;
+}
+
+.taglineClosed {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  font-weight: 500 !important;
+  color: #475569 !important;
+  margin: 0 0 24px 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: none !important;
+}
+
+.helpSection {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  margin-top: 40px !important;
+  padding-top: 24px !important;
+  border-top: 1px solid #e2e8f0 !important;
+  width: 100% !important;
+}
+
+.helpTitle {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #0c2b5c !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.contactRow {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 20px !important;
+  text-align: left !important;
+}
+
+.qrCode {
+  width: 110px !important;
+  height: 110px !important;
+  flex-shrink: 0 !important;
+  border-radius: 12px !important;
+  border: 2px solid #e2e8f0 !important;
+  padding: 6px !important;
+  background: #ffffff !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+.qrCode img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.contactDetails {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  gap: 6px !important;
+}
+
+.contactLabel {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #64748b !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1 !important;
+  margin-bottom: 2px !important;
+}
+
+.contactLink {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  color: #0062ff !important;
+  text-decoration: none !important;
+  gap: 8px !important;
+  transition: all 0.2s ease !important;
+  line-height: 1.1 !important;
+}
+
+.contactLink:hover {
+  color: #004ecc !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ── Custom Contact Icons ── */
+.contactGroup {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  margin-top: 4px !important;
+}
+
+.contactTexts {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.iconPhone {
+  width: 18px !important;
+  height: 18px !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+  margin-top: 1px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230062ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'%3E%3C/path%3E%3C/svg%3E") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.iconEnv {
+  width: 22px !important;
+  height: 18px !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+  margin-top: 1px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230062ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'%3E%3C/path%3E%3Cpolyline points='22,6 12,13 2,6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.contactGroup:hover .iconPhone {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23004ecc' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'%3E%3C/path%3E%3C/svg%3E") !important;
+  transform: translateY(-1px) !important;
+}
+
+.contactGroup:hover .iconEnv {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23004ecc' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'%3E%3C/path%3E%3Cpolyline points='22,6 12,13 2,6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  transform: translateY(-1px) !important;
+}
+
+.contactTiming {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px !important;
+  color: #475569 !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  margin-top: 2px !important;
+}
+
+/* ── Mobile & Tablet ── */
+@media (max-width: 850px) {
+  .overlay {
+    align-items: flex-start !important;
+    overflow-y: auto !important;
+    padding: 20px 0 !important;
+  }
+
+  .modal {
+    flex-direction: column !important;
+    width: 390px !important;
+    max-width: 92vw !important;
+    height: auto !important;
+    max-height: none !important;
+    border-radius: 24px !important;
+    overflow-y: visible !important;
+    margin: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  .left {
+    width: 100% !important;
+    padding: 28px 24px !important;
+    order: 2 !important;
+  }
+
+  .right {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    order: 1 !important;
+    flex-shrink: 0 !important;
+    background-image: none !important;
+    display: flex !important;
+    align-items: flex-end !important;
+  }
+
+  .mobileBanner {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .logo {
+    height: 30px !important;
+  }
+
+  .title {
+    font-size: 23px !important;
+    margin: 8px 0 8px 0 !important;
+  }
+
+  .taglineClosed {
+    font-size: 13px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .contactRow {
+    gap: 12px !important;
+  }
+
+  .helpSection {
+    margin-top: 16px !important;
+    padding-top: 16px !important;
+    gap: 12px !important;
+  }
+
+  .qrCode {
+    width: 90px !important;
+    height: 90px !important;
+    border-radius: 8px !important;
+    padding: 4px !important;
+  }
+
+  .contactLink {
+    font-size: 16px !important;
+  }
+
+  .close {
+    top: 12px !important;
+    right: 12px !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+
+  .close::before,
+  .close::after {
+    width: 14px !important;
+  }
+}
+
+@media (max-height: 580px) and (min-width: 768px) {
+  .modal {
+    height: 95vh !important;
+  }
+
+  .left {
+    padding: 24px 32px !important;
+  }
+
+  .title {
+    font-size: 26px !important;
+    margin: 8px 0 8px 0 !important;
+  }
+
+  .taglineClosed {
+    margin-bottom: 16px !important;
+  }
+}

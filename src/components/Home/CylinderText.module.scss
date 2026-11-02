@@ -1,0 +1,46 @@
+.cylinderWrapper {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  perspective: 1000px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cylinderTextWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  text-align: center;
+}
+
+.cylinderTextItem {
+  // Large, tightly set type so neighbouring lines overlap on the cylinder
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: clamp(3.5rem, 9vw, 11rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  position: absolute;
+	color: #ece9e2;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+@media screen and (max-width: 899px) {
+  // .cylinderWrapper {
+  //   height: 50vh !important;
+  // }
+  // .cylinderTextWrapper{
+  //   height: 70%;
+  // }
+  
+}

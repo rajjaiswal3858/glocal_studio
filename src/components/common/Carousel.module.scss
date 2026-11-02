@@ -1,0 +1,70 @@
+.marquee {
+	position: relative;
+	display: flex;
+	overflow: hidden;
+	user-select: none;
+
+	&:hover .marqueeContent {
+		animation-play-state: paused;
+	}
+
+	&::before,
+	&::after {
+		content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 80px;
+		z-index: 2;
+	}
+
+	&::before {
+		left: 0;
+		background: linear-gradient(to left, rgba(6, 0, 16, 0) 0%, rgba(6, 0, 16) 100%);
+	}
+
+	&::after {
+		right: 0;
+		background: linear-gradient(to right, rgba(6, 0, 16, 0) 0%, rgba(6, 0, 16) 100%);
+	}
+}
+
+.marqueeContent {
+	flex-shrink: 0;
+	display: flex;
+	justify-content: space-around;
+	animation: scroll var(--animation-time, 20s) linear infinite;
+	margin: 0;
+	padding: 0;
+
+	/* Pause animation when reduced-motion is set */
+	@media (prefers-reduced-motion: reduce) {
+		.marqueeContent {
+			animation-play-state: paused !important;
+		}
+	}
+
+	li {
+		display: flex;
+		flex-shrink: 0;
+		flex-direction: column;
+		justify-content: center;
+		// width: 260px;
+		margin-right: 100px;
+		overflow: hidden;
+
+		img {
+			height: 70px;
+		}
+	}
+}
+
+@keyframes scroll {
+	0% {
+			transform: translate3d(0, 0, 0);
+	}
+
+	100% {
+			transform: translate3d(-100%, 0, 0);
+	}
+}

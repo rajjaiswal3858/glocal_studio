@@ -1,0 +1,52 @@
+.count {
+	font-size: 24px;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.heading {
+	font-size: 24px;
+	font-weight: 500;
+	cursor: pointer;
+	min-height: 152px;
+	position: relative;
+
+	&.active {
+		&::after {
+			background: linear-gradient(to left, #347bed, #de0d89);
+		}
+	}
+
+	&::after {
+		display: block;
+		content: "";
+		height: 4px;
+		background: #d6d3c9;
+		width: 100%;
+		margin: 20px 0;
+		position: absolute;
+		bottom: 0;
+	}
+}
+
+@media screen and (max-width: 899px) {
+	.heading::after {
+		height: 2px;
+		background: linear-gradient(to left, #347bed, #de0d89);
+	}
+	.faqContent {
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		padding-bottom: 40px;
+	}
+	.colorfulTextFaq {
+		display: inline-block;
+	}
+	.count {
+		font-size: 16px;
+		margin-bottom: 0;
+	}
+	.heading {
+		letter-spacing: -0.5px;
+	}
+	
+}
