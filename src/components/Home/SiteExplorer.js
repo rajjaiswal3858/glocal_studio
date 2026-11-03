@@ -28,9 +28,9 @@ const hotspots = [
 	{ id: "pavilion", label: "Pavilion", video: pavilion, x: 74, y: 68.6 },
 	{ id: "playground", label: "Playground", video: playground, x: 29.5, y: 68.6 },
 	{ id: "central-plaza", label: "Central Plaza", video: centralPlaza, x: 44, y: 72.6 },
-	{ id: "aerial-site-02", label: "Aerial Site View 02", video: aerialSite02, x: 69, y: 73.5 },
+	{ id: "aerial-site-02", label: "Aerial Site View 01", video: aerialSite02, x: 69, y: 73.5 },
 	{ id: "tennis-court", label: "Tennis Court", video: tennisCourt, x: 27, y: 76 },
-	{ id: "aerial-site-01", label: "Aerial Site View 01", video: aerialSite01, x: 54.5, y: 78.8 },
+	{ id: "aerial-site-01", label: "Aerial Site View 02", video: aerialSite01, x: 54.5, y: 78.8 },
 	{ id: "entrance", label: "Entrance", video: entrance, x: 44.5, y: 85.7 },
 ];
 
